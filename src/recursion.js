@@ -54,13 +54,13 @@ var arraySum = function(array) {
 
 // 4. Check if a number is even.
 var isEven = function(n) {
-    var halvedNum = n / 2;
-    if (halvedNum === 1) {
-        return true;
-    } else if (halvedNum < 1) {
-        return false;
-    }
-    return isEven(halvedNum);
+  var n = Math.abs(n); // compatible with negative numbers
+  if (n === 0) {
+    return true;
+  } else if (n === 1) {
+    return false;
+  }
+  return isEven(n - 2);
 };
 
 // 5. Sum all integers below a given integer.
