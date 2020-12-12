@@ -7,20 +7,60 @@
 // Example: 5! = 5 x 4 x 3 x 2 x 1 = 120
 // factorial(5); // 120
 var factorial = function(n) {
+    if (n < 0) {
+        return null;
+    }
+    if (n === 0) {
+        return 1;
+    };
+    return (n * factorial(n - 1));
 };
 
 // 2. Compute the sum of an array of integers.
 // sum([1,2,3,4,5,6]); // 21
 var sum = function(array) {
+    var copiedArr = array.slice(0);
+    if (array.length === 0) {
+        return 0;
+    }
+    return (copiedArr.pop() + sum(copiedArr));
 };
 
 // 3. Sum all numbers in an array containing nested arrays.
 // arraySum([1,[2,3],[[4]],5]); // 15
 var arraySum = function(array) {
+  // define base case
+  if (array.length === 0) {
+    return 0;
+  }
+
+  // make a copy of the array
+  var arrCopy = array.slice(0);
+
+  // establish result 
+  var result = 0;
+
+  for (let i = 0; i < arrCopy.length; i++) {
+    // pop off the end of the arrCopy
+    var currentElement = arrCopy.pop();
+    if (!Array.isArray(currentElement)) {  
+      result += currentElement;
+    } else {   // define recursion case
+      result += arraySum(currentElement);
+    }
+  }
+  return (result += arraySum(arrCopy)); 
 };
 
 // 4. Check if a number is even.
 var isEven = function(n) {
+    var halvedNum = n / 2;
+    if (halvedNum === 1) {
+        return true;
+    } else if (halvedNum < 1) {
+        return false;
+    }
+    return isEven(halvedNum);
 };
 
 // 5. Sum all integers below a given integer.
@@ -185,6 +225,27 @@ var nestedEvenSum = function(obj) {
 // 30. Flatten an array containing nested arrays.
 // flatten([1,[2],[3,[[4]]],5]); // [1,2,3,4,5]
 var flatten = function(array) {
+  // define base case
+  if (array.length === 0) {
+      return [];
+  }
+
+  // make a copy of the array
+  var arrCopy = array.slice(0);
+
+  // establish result array
+  var result = [];
+
+  for (let i = 0; i < arrCopy.length; i++) {
+  // pop off the end of the arrCopy
+  var currentElement = arrCopy.pop();
+  if (!Array.isArray(currentElement)) {  
+      result.push(currentElement);
+  } else {   // define recursion case
+      result = (flatten(currentElement)).concat(result);
+  }
+  }
+  return (flatten(arrCopy)).concat(result);
 };
 
 // 31. Given a string, return an object containing tallies of each letter.
