@@ -37,19 +37,19 @@ var arraySum = function(array) {
   // make a copy of the array
   var arrCopy = array.slice(0);
 
-  // establish result 
+  // establish result
   var result = 0;
 
   for (let i = 0; i < arrCopy.length; i++) {
     // pop off the end of the arrCopy
     var currentElement = arrCopy.pop();
-    if (!Array.isArray(currentElement)) {  
+    if (!Array.isArray(currentElement)) {
       result += currentElement;
     } else {   // define recursion case
       result += arraySum(currentElement);
     }
   }
-  return (result += arraySum(arrCopy)); 
+  return (result += arraySum(arrCopy));
 };
 
 // 4. Check if a number is even.
@@ -86,12 +86,12 @@ var range = function(x, y) {
   } else if (x < y) {
     if ((x + 1) === y) {
       return [];
-    } 
+    }
     return [x + 1].concat(range((x + 1), y));
   } else { // x > y
     if ((x - 1) === y) {
       return [];
-    } 
+    }
     return [x - 1].concat(range((x - 1), y));
   }
 };
@@ -151,7 +151,7 @@ var palindrome = function(string) {
   var firstChar = string.slice(0,1);
   var lastChar = string.slice(-1);
   var remainingString = string.slice(1, -1);
-  
+
   if (firstChar !== lastChar) {
     return false;
   }
@@ -173,28 +173,28 @@ var modulo = function(x, y) {
 
   if (x === 0) {
     return 0;
-  } else if (x < 0) { 
+  } else if (x < 0) {
     return x + y;
   }
-  
+
   return modulo((x - y), y);
 };
 
 // 12. Write a function that multiplies two numbers without using the * operator or
 // Math methods.
 var multiply = function(x, y) {
-  
+
   if (y === 0) {
     return 0;
   }
-  
+
   if (y < 0 && x > 0) {
     return -x + multiply(x, y + 1);
   } else if (y > 0 && x < 0) {
     return x + multiply(x, y - 1);
   } else if (y < 0 && x < 0) {
     return -x + multiply(x, y + 1);
-  } else { 
+  } else {
     return x + multiply(x, y - 1)
   }
 };
@@ -220,6 +220,29 @@ var divide = function(x, y) {
 // http://www.cse.wustl.edu/~kjg/cse131/Notes/Recursion/recursion.html
 // https://www.khanacademy.org/computing/computer-science/cryptography/modarithmetic/a/the-euclidean-algorithm
 var gcd = function(x, y) {
+  if (x === 0) {
+    return y;
+  } else if (y === 0) {
+    return x;
+  }
+
+  var dividend = x;
+  var divisor = y;
+  var quotient = 0;
+
+  while(dividend > 0) {
+    dividend -= divisor;
+    quotient++;
+  }
+
+  if (dividend < 0) {
+    dividend += y;
+    quotient++;
+  }
+
+  var remainder = dividend;
+
+  return gcd(y, remainder);
 };
 
 // 15. Write a function that compares each character of two strings and returns true if
@@ -338,7 +361,7 @@ var flatten = function(array) {
   for (let i = 0; i < arrCopy.length; i++) {
   // pop off the end of the arrCopy
   var currentElement = arrCopy.pop();
-  if (!Array.isArray(currentElement)) {  
+  if (!Array.isArray(currentElement)) {
       result.push(currentElement);
   } else {   // define recursion case
       result = (flatten(currentElement)).concat(result);
